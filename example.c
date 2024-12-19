@@ -1,6 +1,6 @@
-#include "gtpc-decoder.h"
-
 #include <stdio.h>
+
+#include "gtpc-decoder.h"
 int main()
 {
     registerIEParsers();

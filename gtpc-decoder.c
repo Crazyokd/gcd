@@ -42,18 +42,18 @@ static int decodeGtpcHeader(uint8_t *data, uint32_t len, gtp_t *gtp)
         uint8_t sndcp = *data & 0x01; // Is SNDCP N-PDU included?
         ++oft;
         hdr->msgType = data[oft++];
-        hdr->msgLen = ntohs(*(uint16_t *)(data+oft));
+        hdr->msgLen = ntohs(*(uint16_t *)(data + oft));
         oft += 2;
-        hdr->sqn = ntohs(*(uint16_t *)(data+oft));
+        hdr->sqn = ntohs(*(uint16_t *)(data + oft));
         oft += 2;
-        uint16_t flowLabel = ntohs(*(uint16_t *)(data+oft));
+        uint16_t flowLabel = ntohs(*(uint16_t *)(data + oft));
         oft += 2;
         if (sndcp == 1) {
             // get SNDCP N-PDU LLC Number
         }
         oft += 4;
         char tid[9];
-        memcpy(tid, data+oft, 8);
+        memcpy(tid, data + oft, 8);
         oft += 8;
         break;
     }
@@ -67,17 +67,15 @@ static int decodeGtpcHeader(uint8_t *data, uint32_t len, gtp_t *gtp)
         uint8_t pdu = *data & 0x01; // Is N-PDU number present?
         ++oft;
         hdr->msgType = data[oft++];
-        hdr->msgLen = ntohs(*(uint16_t *)(data+oft));
+        hdr->msgLen = ntohs(*(uint16_t *)(data + oft));
         oft += 2;
-        hdr->teid = ntohl(*(uint32_t *)(data+oft));
+        hdr->teid = ntohl(*(uint32_t *)(data + oft));
         oft += 4;
         if (sqn == 1) {
-            hdr->sqn = ntohs(*(uint16_t *)(data+oft));
+            hdr->sqn = ntohs(*(uint16_t *)(data + oft));
             oft += 2;
         }
-        if (ext) {
-
-        }
+        if (ext) {}
         oft += 2;
         while (data[oft - 1] == 0x02) {
             // next extension header type
@@ -89,13 +87,13 @@ static int decodeGtpcHeader(uint8_t *data, uint32_t len, gtp_t *gtp)
         uint8_t teidFlag = (*data >> 3) & 0x01;
         ++oft;
         hdr->msgType = data[oft++];
-        hdr->msgLen = ntohs(*(uint16_t *)(data+oft));
+        hdr->msgLen = ntohs(*(uint16_t *)(data + oft));
         oft += 2;
         if (teidFlag) {
-            hdr->teid = ntohl(*(uint32_t *)(data+oft));
+            hdr->teid = ntohl(*(uint32_t *)(data + oft));
             oft += 4;
         }
-        hdr->teid = (ntohl(*(uint32_t *)(data+oft)) >> 8) & 0x00ffffff;
+        hdr->teid = (ntohl(*(uint32_t *)(data + oft)) >> 8) & 0x00ffffff;
         oft += 4;
         break;
     }
@@ -139,12 +137,6 @@ static int decodeGtpcBody(uint8_t *data, uint32_t len, gtp_t *gtp,
     return idx == len;
 }
 
-/**
- * register IEs
- * @return
- *   1  success
- *   0  error
- */
 int registerIEParsers()
 {
     memset(ie_table, 0, sizeof(ie_table));
@@ -153,12 +145,6 @@ int registerIEParsers()
         && registerGtpv2IEParsers(ie_table[2]);
 }
 
-/**
- * @return
- *   -1 on decode header error or not supported version
- *   0  on decode body error
- *   1  on success
- */
 int decodeGtpc(uint8_t *data, uint32_t len, gtp_t *gtp)
 {
     // decode header

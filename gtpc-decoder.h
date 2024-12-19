@@ -150,7 +150,20 @@ typedef struct gtp_s {
 #define MAX_IE 0xFF
 typedef int (*onIEParse)(uint8_t *data, uint32_t len, gtp_t *body);
 
+/**
+ * register IEs
+ * @return
+ *   1  success
+ *   0  error
+ */
 GCD_PUBLIC int registerIEParsers();
+/**
+ * decode gtpc data
+ * @return
+ *   -1 on decode header error or not supported version
+ *   0  on decode body error
+ *   1  on success
+ */
 GCD_PUBLIC int decodeGtpc(uint8_t *data, uint32_t len, gtp_t *gtp);
 
 #ifdef __cplusplus

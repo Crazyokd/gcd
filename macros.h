@@ -26,7 +26,7 @@
   #endif
 #endif
 
-#define MAX_MCC_SIZE         3
-#define MAX_MNC_SIZE         3
+#define MAX_MCC_SIZE 3
+#define MAX_MNC_SIZE 3
 
 #endif

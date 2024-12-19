@@ -144,12 +144,12 @@ static int decodeImsi(uint8_t *data, uint32_t datalen, gtp_t *gtp)
         return -1;
     }
 
-    BCD2ASCII(data + 1, GTPV1_IMSI_LEN * 2, gtp->b1.imsi, MAX_IMSI_BCD_LEN+1);
+    BCD2ASCII(data + 1, GTPV1_IMSI_LEN * 2, gtp->b1.imsi, MAX_IMSI_BCD_LEN + 1);
     return 1 + GTPV1_IMSI_LEN;
 }
 
 static int decodeRoutingAreaIdentity(uint8_t *data, uint32_t datalen,
-                                            gtp_t *gtp)
+                                     gtp_t *gtp)
 {
     if (data[0] != GTPV1_ROUTING_AREA_IDENTITY) {
         return 0;
@@ -168,8 +168,7 @@ static int decodeRoutingAreaIdentity(uint8_t *data, uint32_t datalen,
     return offset;
 }
 
-static inline int decodeReorderingRequired(uint8_t *data, uint32_t datalen,
-                                           gtp_t *gtp)
+static int decodeReorderingRequired(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     if (data[0] != GTPV1_REORDERING_REQUIRED) {
         return 0;
@@ -182,8 +181,7 @@ static inline int decodeReorderingRequired(uint8_t *data, uint32_t datalen,
     return 1 + GTPV1_REORDERING_REQUIRED_LEN;
 }
 
-static inline int decodeRecovery(uint8_t *data, uint32_t datalen,
-                                 gtp_t *gtp)
+static int decodeRecovery(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     if (data[0] != GTPV1_RECOVERY) {
         return 0;
@@ -196,8 +194,7 @@ static inline int decodeRecovery(uint8_t *data, uint32_t datalen,
     return 1 + GTPV1_RECOVERY_LEN;
 }
 
-static inline int decodeSelectionMode(uint8_t *data, uint32_t datalen,
-                                      gtp_t *gtp)
+static int decodeSelectionMode(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     if (data[0] != GTPV1_SELECTION_MODE) {
         return 0;
@@ -213,8 +210,7 @@ static inline int decodeSelectionMode(uint8_t *data, uint32_t datalen,
     return offset;
 }
 
-static inline int decodeTEIDDataI(uint8_t *data, uint32_t datalen,
-                                  gtp_t *gtp)
+static int decodeTEIDDataI(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     if (data[0] != GTPV1_TEID_DATA_I) {
         return 0;
@@ -229,8 +225,7 @@ static inline int decodeTEIDDataI(uint8_t *data, uint32_t datalen,
     return offset;
 }
 
-static inline int decodeTEIDControlPlane(uint8_t *data, uint32_t datalen,
-                                         gtp_t *gtp)
+static int decodeTEIDControlPlane(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     if (data[0] != GTPV1_TEID_CONTROL_PLANE) {
         return 0;
@@ -245,8 +240,7 @@ static inline int decodeTEIDControlPlane(uint8_t *data, uint32_t datalen,
     return offset;
 }
 
-static inline int decodeTeardownInd(uint8_t *data, uint32_t datalen,
-                                          gtp_t *gtp)
+static int decodeTeardownInd(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     if (data[0] != GTPV1_TEARDOWN_IND) {
         return 0;
@@ -261,8 +255,7 @@ static inline int decodeTeardownInd(uint8_t *data, uint32_t datalen,
     return offset;
 }
 
-static inline int decodeNSAPI(uint8_t *data, uint32_t datalen,
-                              gtp_t *gtp)
+static int decodeNSAPI(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     if (data[0] != GTPV1_NSAPI) {
         return 0;
@@ -277,8 +270,8 @@ static inline int decodeNSAPI(uint8_t *data, uint32_t datalen,
     return offset;
 }
 
-static inline int decodeChargingCharacteristics(uint8_t *data, uint32_t datalen,
-                                          gtp_t *gtp)
+static int decodeChargingCharacteristics(uint8_t *data, uint32_t datalen,
+                                         gtp_t *gtp)
 {
     if (data[0] != GTPV1_CHARGING_CHARACTERISTICS) {
         return 0;
@@ -293,8 +286,7 @@ static inline int decodeChargingCharacteristics(uint8_t *data, uint32_t datalen,
     return offset;
 }
 
-static inline int decodeChargingID(uint8_t *data, uint32_t datalen,
-                                   gtp_t *gtp)
+static int decodeChargingID(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     if (data[0] != GTPV1_CHARGING_ID) {
         return 0;
@@ -328,8 +320,7 @@ static inline int decodeGtpV1Tlv(uint8_t *data, uint32_t datalen, uint8_t type,
     return offset;
 }
 
-static inline int decodeEndUserAddress(uint8_t *data, uint32_t datalen,
-                                       gtp_t *gtp)
+static int decodeEndUserAddress(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -355,8 +346,7 @@ static inline int decodeEndUserAddress(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static inline int decodeAccessPointName(uint8_t *data, uint32_t datalen,
-                                        gtp_t *gtp)
+static int decodeAccessPointName(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -385,8 +375,7 @@ static inline int decodeAccessPointName(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static inline int decodeProtocolConfOpts(uint8_t *data, uint32_t datalen,
-                                         gtp_t *gtp)
+static int decodeProtocolConfOpts(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -401,8 +390,7 @@ static inline int decodeProtocolConfOpts(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static inline int decodeGSNAddress(uint8_t *data, uint32_t datalen,
-                                   gtp_t *gtp)
+static int decodeGSNAddress(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -426,8 +414,8 @@ static inline int decodeGSNAddress(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static inline int decodeMSInternationalNumber(uint8_t *data, uint32_t datalen,
-                                              gtp_t *gtp)
+static int decodeMSInternationalNumber(uint8_t *data, uint32_t datalen,
+                                       gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -439,12 +427,11 @@ static inline int decodeMSInternationalNumber(uint8_t *data, uint32_t datalen,
 
     uint8_t msisdnFlag = p_value[0];
     BCD2ASCII(p_value + 1, (p_value_len - 1) * 2, gtp->b1.msisdn,
-              MAX_MSISDN_BCD_LEN+1);
+              MAX_MSISDN_BCD_LEN + 1);
     return ret;
 }
 
-static inline int decodeqos(uint8_t *data, uint32_t datalen,
-                            gtp_t *gtp)
+static int decodeqos(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -459,8 +446,7 @@ static inline int decodeqos(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static inline int decodeCommonFlags(uint8_t *data, uint32_t datalen,
-                                    gtp_t *gtp)
+static int decodeCommonFlags(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -474,8 +460,7 @@ static inline int decodeCommonFlags(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static inline int decodeRATType(uint8_t *data, uint32_t datalen,
-                                gtp_t *gtp)
+static int decodeRATType(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -492,8 +477,8 @@ static inline int decodeRATType(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static inline int decodeUserLocationInformation(uint8_t *data, uint32_t datalen,
-                                                gtp_t *gtp)
+static int decodeUserLocationInformation(uint8_t *data, uint32_t datalen,
+                                         gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -522,8 +507,7 @@ static inline int decodeUserLocationInformation(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static inline int decodeMSTimeZone(uint8_t *data, uint32_t datalen,
-                                   gtp_t *gtp)
+static int decodeMSTimeZone(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -538,8 +522,7 @@ static inline int decodeMSTimeZone(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static int decodeIMEI(uint8_t *data, uint32_t datalen,
-                             gtp_t *gtp)
+static int decodeIMEI(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -568,8 +551,7 @@ static int decodeMSInfoChangeReportingAction(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static int decodeBearerControlMode(uint8_t *data, uint32_t datalen,
-                                   gtp_t *gtp)
+static int decodeBearerControlMode(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;
@@ -583,8 +565,7 @@ static int decodeBearerControlMode(uint8_t *data, uint32_t datalen,
     return ret;
 }
 
-static inline int decodeEPriorityI(uint8_t *data, uint32_t datalen,
-                                   gtp_t *gtp)
+static int decodeEPriorityI(uint8_t *data, uint32_t datalen, gtp_t *gtp)
 {
     uint8_t *p_value = NULL;
     int p_value_len = 0;

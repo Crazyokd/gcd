@@ -3,6 +3,6 @@
 
 #include "gtpc-decoder.h"
 
-int registerGtpv1IEParsers(onIEParse ietable[MAX_IE]);
+GCD_LOCAL int registerGtpv1IEParsers(onIEParse ietable[MAX_IE]);
 
 #endif

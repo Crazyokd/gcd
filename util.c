@@ -1,10 +1,11 @@
 #include "util.h"
-#include "macros.h"
-#include <stdio.h>
-#include <arpa/inet.h>
 
-uint8_t BCD2ASCII(uint8_t *bcd, uint8_t bcdLen, char *ascii,
-                         uint8_t asciiLen)
+#include <arpa/inet.h>
+#include <stdio.h>
+
+#include "macros.h"
+
+uint8_t BCD2ASCII(uint8_t *bcd, uint8_t bcdLen, char *ascii, uint8_t asciiLen)
 {
     int i = 0, j = 0;
     if (asciiLen < bcdLen) return 0;
@@ -58,11 +59,10 @@ uint8_t BCD2ASCII(uint8_t *bcd, uint8_t bcdLen, char *ascii,
     return bcdLen;
 }
 
-int decodeMccMncLac(uint8_t *data, char *mcc, char *mnc,
-                                  uint16_t *lac)
+int decodeMccMncLac(uint8_t *data, char *mcc, char *mnc, uint16_t *lac)
 {
     int offset = 0;
-    BCD2ASCII(data + offset, MAX_MCC_SIZE+1, mcc, MAX_MCC_SIZE+1);
+    BCD2ASCII(data + offset, MAX_MCC_SIZE + 1, mcc, MAX_MCC_SIZE + 1);
     offset += 1;
     uint8_t flag = (data[offset] >> 4) & 0x0F;
     offset += 1;
