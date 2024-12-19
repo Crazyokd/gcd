@@ -425,7 +425,7 @@ static int decodeMSInternationalNumber(uint8_t *data, uint32_t datalen,
         return ret;
     }
 
-    uint8_t msisdnFlag = p_value[0];
+    // uint8_t msisdnFlag = p_value[0];
     BCD2ASCII(p_value + 1, (p_value_len - 1) * 2, gtp->b1.msisdn,
               MAX_MSISDN_BCD_LEN + 1);
     return ret;
@@ -547,7 +547,7 @@ static int decodeMSInfoChangeReportingAction(uint8_t *data, uint32_t datalen,
         return ret;
     }
 
-    uint8_t action = p_value[0];
+    // uint8_t action = p_value[0];
     return ret;
 }
 

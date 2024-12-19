@@ -140,11 +140,15 @@ typedef struct gtp_v2_body_s {
 
 typedef struct gtp_s {
     gtp_header_t hdr;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
     union {
         gtp_v0_body_t b0;
         gtp_v1_body_t b1;
         gtp_v2_body_t b2;
     };
+#pragma GCC diagnostic pop
+
 } gtp_t;
 
 #define MAX_IE 0xFF

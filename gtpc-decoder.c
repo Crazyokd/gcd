@@ -29,7 +29,7 @@ static int gtpv2FallbackTlv(uint8_t *data, uint32_t len, gtp_t *ud)
 
 static int decodeGtpcHeader(uint8_t *data, uint32_t len, gtp_t *gtp)
 {
-    int oft = 0;
+    uint32_t oft = 0;
     gtp_header_t *hdr = &gtp->hdr;
 
     hdr->version = (*data >> 5) & 0x07;
@@ -46,7 +46,7 @@ static int decodeGtpcHeader(uint8_t *data, uint32_t len, gtp_t *gtp)
         oft += 2;
         hdr->sqn = ntohs(*(uint16_t *)(data + oft));
         oft += 2;
-        uint16_t flowLabel = ntohs(*(uint16_t *)(data + oft));
+        // uint16_t flowLabel = ntohs(*(uint16_t *)(data + oft));
         oft += 2;
         if (sndcp == 1) {
             // get SNDCP N-PDU LLC Number
@@ -64,7 +64,7 @@ static int decodeGtpcHeader(uint8_t *data, uint32_t len, gtp_t *gtp)
         }
         uint8_t ext = (*data >> 2) & 0x01; // Is Next Extension Header present
         uint8_t sqn = (*data >> 1) & 0x01; // Is Sequence Number present?
-        uint8_t pdu = *data & 0x01; // Is N-PDU number present?
+        // uint8_t pdu = *data & 0x01; // Is N-PDU number present?
         ++oft;
         hdr->msgType = data[oft++];
         hdr->msgLen = ntohs(*(uint16_t *)(data + oft));
@@ -89,6 +89,9 @@ static int decodeGtpcHeader(uint8_t *data, uint32_t len, gtp_t *gtp)
         hdr->msgType = data[oft++];
         hdr->msgLen = ntohs(*(uint16_t *)(data + oft));
         oft += 2;
+        if (len != hdr->msgLen + oft) {
+            return -1;
+        }
         if (teidFlag) {
             hdr->teid = ntohl(*(uint32_t *)(data + oft));
             oft += 4;

@@ -1,4 +1,4 @@
-CFLAGS=-g -ggdb -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -std=gnu99 -fvisibility=hidden
+CFLAGS=-g -ggdb -fno-omit-frame-pointer -Wall -Wextra -Wpedantic -std=gnu99 -fvisibility=hidden -Wno-unused-parameter
 LDFLAGS=-Wl,--as-needed -L. -Wl,-R. -Wl,-Bstatic -lgcd -Wl,-Bdynamic
 
 C_SOURCES := util.c gtpc-decoder.c gtpv0-decoder.c gtpv1-decoder.c gtpv2-decoder.c
