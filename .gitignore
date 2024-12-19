@@ -1,0 +1,6 @@
+*.a
+*.so
+*.o
+*.d
+compile_commands.json
+gcd-example
