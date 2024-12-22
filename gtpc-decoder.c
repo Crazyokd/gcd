@@ -140,12 +140,25 @@ static int decodeGtpcBody(uint8_t *data, uint32_t len, gtp_t *gtp,
     return idx == len;
 }
 
-int registerIEParsers()
+int initIEParsers()
 {
     memset(ie_table, 0, sizeof(ie_table));
     return registerGtpv0IEParsers(ie_table[0])
         && registerGtpv1IEParsers(ie_table[1])
         && registerGtpv2IEParsers(ie_table[2]);
+}
+
+int registerIEParser(uint8_t version, uint8_t ie, onIEParse parser)
+{
+    if (version > MAX_GTPC_VERSION) {
+        return -1;
+    }
+    int ret = 0;
+    if (ie_table[version][ie]) {
+        ret = 1;
+    }
+    ie_table[version][ie] = parser;
+    return ret;
 }
 
 int decodeGtpc(uint8_t *data, uint32_t len, gtp_t *gtp)

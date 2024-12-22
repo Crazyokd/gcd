@@ -3,6 +3,6 @@
 #include "gtpc-decoder.h"
 int main()
 {
-    registerIEParsers();
+    initIEParsers();
     return 0;
 }

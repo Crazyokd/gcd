@@ -155,12 +155,20 @@ typedef struct gtp_s {
 typedef int (*onIEParse)(uint8_t *data, uint32_t len, gtp_t *body);
 
 /**
- * register IEs
+ * init all IEs
  * @return
  *   1  success
  *   0  error
  */
-GCD_PUBLIC int registerIEParsers();
+GCD_PUBLIC int initIEParsers();
+/**
+ * register your custom IE
+ * @return
+ *   -1 error
+ *   0  add a new IEParser
+ *   1  replace an existing IEParser
+ */
+GCD_PUBLIC int registerIEParser(uint8_t version, uint8_t ie, onIEParse parser);
 /**
  * decode gtpc data
  * @return
