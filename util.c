@@ -67,10 +67,10 @@ int decodeMccMncLac(uint8_t *data, char *mcc, char *mnc, uint16_t *lac)
     uint8_t flag = (data[offset] >> 4) & 0x0F;
     offset += 1;
     if (flag == 0x0F) {
-        snprintf(mnc, MAX_MCC_SIZE+1, "%x%x", data[offset] & 0x0F,
+        snprintf(mnc, MAX_MCC_SIZE + 1, "%x%x", data[offset] & 0x0F,
                  (data[offset] >> 4) & 0x0F);
     } else {
-        snprintf(mnc, MAX_MNC_SIZE+1, "%x%x%x", data[offset] & 0x0F,
+        snprintf(mnc, MAX_MNC_SIZE + 1, "%x%x%x", data[offset] & 0x0F,
                  (data[offset] >> 4) & 0x0F, flag);
     }
     offset += 1;

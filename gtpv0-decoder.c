@@ -83,6 +83,8 @@ defFallbackTv(MS_VALIDATED)
 defFallbackTv(FLOW_LABEL_DATA_II)
 defFallbackTv(MS_NOT_REACHABLE_REASON)
 
+#undef defFallbackTv
+
 static int decodeCause(uint8_t *data, uint32_t datalen,
                        gtp_t *gtp)
 {
